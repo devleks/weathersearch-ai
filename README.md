@@ -1,4 +1,4 @@
-# AI Weather Assistant
+# WeatherSearch AI 🌤️
 
 An intelligent weather application that combines real-time weather data with AI-powered insights and recommendations.
 
