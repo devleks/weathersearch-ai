@@ -206,7 +206,7 @@ class WeatherAI:
             response = self.client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "You are WeatherSearch's expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
+                    {"role": "system", "content": "You are Weather Focasting expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.7

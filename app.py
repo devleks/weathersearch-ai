@@ -208,7 +208,7 @@ def display_weather_info(data):
     # Display weather icon centered
     col_icon = st.columns([1, 1, 1])
     with col_icon[1]:
-        st.image(icon, use_column_width=True)
+        st.image(icon, use_container_width=True)
     
     # Display metrics
     col1, col2, col3 = st.columns(3)
