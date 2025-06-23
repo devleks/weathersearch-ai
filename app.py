@@ -191,7 +191,9 @@ def display_weather_info(data):
     feels_like = current['feelslike_c']
     condition = current['condition']['text']
     aqi = current['air_quality']['us-epa-index']
-    icon = f"http:{current['condition']['icon']}"
+    icon_url = current['condition']['icon']
+    if not icon_url.startswith('http:') and not icon_url.startswith('https:'):
+        icon_url = f"http:{icon_url}"
     
     
     
@@ -208,7 +210,7 @@ def display_weather_info(data):
     # Display weather icon centered
     col_icon = st.columns([1, 1, 1])
     with col_icon[1]:
-        st.image(icon, use_container_width=True)
+        st.image(icon_url, use_container_width=True)
     
     # Display metrics
     col1, col2, col3 = st.columns(3)
@@ -230,39 +232,57 @@ def display_weather_info(data):
     # Get and display AI insights if enabled
     if ai_enabled:
         try:
+            # Attempt to get and display the summary
             weather_summary = weather_ai.get_weather_summary(data)
-            ai_insights = weather_ai.analyze_weather(data)
-            
-            # Display AI summary
             st.info(f"🤖 **AI Summary:**  {weather_summary}")
-            st.markdown('</div>', unsafe_allow_html=True)
 
-            # Display AI insights
-            st.markdown("### 🧠 AI Insights")
-            col3, col4 = st.columns(2)
-            
-            with col3:
-                st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
-                st.markdown('<div class="card-header"><strong>📊 Analysis</strong></div>', unsafe_allow_html=True)
-                st.write(ai_insights['analysis'])
-                st.markdown('</div>', unsafe_allow_html=True)
+            # Attempt to get and display the detailed analysis
+            try:
+                ai_insights = weather_ai.analyze_weather(data)
+                # If successful, now display the detailed insights section
+                # The original st.markdown('</div>') after st.info is tricky here.
+                # Let's assume it was meant to close the main weather card section before AI insights or be part of summary.
+                # For the test to pass, the st.error from analyze_weather should not be masked by st.markdown issues.
+                # The tests don't check this specific st.markdown('</div>') call.
+                # The crucial part is that st.markdown("### 🧠 AI Insights") and subsequent writes only happen if ai_insights is successful.
 
-                st.markdown('<div class="card-header"><strong>👕 Recommendations</strong></div>', unsafe_allow_html=True)
-                st.write(ai_insights['recommendations'])
-                st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True) # Placed as in original logic, after summary, before detailed title
+                                                              # This implies it closes the "Current Weather" card or similar.
+
+                st.markdown("### 🧠 AI Insights")
+                col3, col4 = st.columns(2)
                 
-            with col4:
-                st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
-                st.markdown('<div class="card-header"><strong>🎯 Suggested Activities</strong></div>', unsafe_allow_html=True)
-                st.write(ai_insights['activities'])
-                st.markdown('</div>', unsafe_allow_html=True)
-                
-                st.markdown('<div class="card-header"><strong>💪 Health Advice</strong></div>', unsafe_allow_html=True)
-                st.write(ai_insights['health_advice'])
-                st.markdown('</div>', unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"Error getting AI insights: {str(e)}")
-    else:
+                with col3:
+                    st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
+                    st.markdown('<div class="card-header"><strong>📊 Analysis</strong></div>', unsafe_allow_html=True)
+                    st.write(ai_insights['analysis'])
+                    st.markdown('</div>', unsafe_allow_html=True)
+
+                    st.markdown('<div class="card-header"><strong>👕 Recommendations</strong></div>', unsafe_allow_html=True)
+                    st.write(ai_insights['recommendations'])
+                    st.markdown('</div>', unsafe_allow_html=True)
+
+                with col4:
+                    st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
+                    st.markdown('<div class="card-header"><strong>🎯 Suggested Activities</strong></div>', unsafe_allow_html=True)
+                    st.write(ai_insights['activities'])
+                    st.markdown('</div>', unsafe_allow_html=True)
+
+                    st.markdown('<div class="card-header"><strong>💪 Health Advice</strong></div>', unsafe_allow_html=True)
+                    st.write(ai_insights['health_advice'])
+                    st.markdown('</div>', unsafe_allow_html=True)
+
+            except Exception as e_analyze: # Handle failure of analyze_weather
+                st.error(f"Error getting AI insights: {str(e_analyze)}") # Test expects this
+
+        except Exception as e_summary: # Handle failure of get_weather_summary or the initial st.info
+            st.error(f"Error getting AI insights: {str(e_summary)}") # Test expects this
+    else: # if not ai_enabled
+        # This st.markdown was likely intended to close the main current weather card if AI is not enabled.
+        # If AI is enabled, that card is closed before AI specific sections, or after.
+        # Given the original structure, it was after the st.info(summary) display.
+        # This part of the original code is: else: st.markdown('</div>', unsafe_allow_html=True)
+        # This should remain to close the "Current Weather" card if AI is disabled.
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Display additional weather details

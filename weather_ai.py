@@ -10,7 +10,11 @@ class WeatherAI:
         Args:
             api_key (str, optional): OpenAI API key. If not provided, will try to get from environment.
         """
-        self.client = OpenAI(api_key=api_key or os.getenv('OPENAI_API_KEY'))
+        resolved_api_key = api_key or os.getenv('OPENAI_API_KEY')
+        if resolved_api_key:
+            self.client = OpenAI(api_key=resolved_api_key)
+        else:
+            self.client = None # Or raise an error, or handle differently
 
     # Helper Methods for Weather Analysis
     def _get_temp_description(self, feelslike_c):
@@ -35,9 +39,9 @@ class WeatherAI:
             return "Warm – Pleasant for most, dress lightly, stay hydrated"
         elif 30 <= feelslike_c < 40:
             return "Hot – Can be uncomfortable, important to stay cool and hydrated"
-        elif feelslike_c >= 40:
+        elif feelslike_c >= 40 and feelslike_c < 60: # Added upper bound for Extremely Hot
             return "Extremely Hot – Dangerous heat levels, risk of heat-related illnesses"
-        else:
+        else: # Catches below -20 (if not caught by first if) and above 60
             return "Unknown temperature comfort level"
 
     def _get_wind_description(self, wind_kph):
