@@ -204,7 +204,7 @@ class WeatherAI:
 
             # Get AI response
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-5.4-mini",
                 messages=[
                     {"role": "system", "content": "You are Weather Focasting expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
                     {"role": "user", "content": prompt}
