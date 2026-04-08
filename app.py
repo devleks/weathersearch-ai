@@ -301,7 +301,9 @@ def main():
         #label="City input field",
         placeholder="Enter a city name (e.g., London, Tokyo, New York)",
         #help="Type the name of any city to get current weather information",
-        #label_visibility="collapsed"
+        #label_visibility="collapsed",
+        max_chars=300,
+        width="stretch"
     )
 
     if city:
