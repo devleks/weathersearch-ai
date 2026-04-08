@@ -198,7 +198,7 @@ def display_weather_info(data):
     # Display location information
     st.markdown('<div class="weather-card">', unsafe_allow_html=True)
     st.subheader(f"{city}, {country}")
-    st.write(f"{icon} {condition}")
+    #st.write(f"{icon} {condition}")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Display current weather information
