@@ -234,30 +234,30 @@ def display_weather_info(data):
             ai_insights = weather_ai.analyze_weather(data)
             
             # Display AI summary
-            st.info(f"🤖 **AI Summary:**  {weather_summary}")
+            st.info(f" **AI Summary:**  {weather_summary}")
             st.markdown('</div>', unsafe_allow_html=True)
 
             # Display AI insights
-            st.markdown("### 🧠 AI Insights")
+            st.markdown("###  AI Insights")
             col3, col4 = st.columns(2)
             
             with col3:
                 st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
-                st.markdown('<div class="card-header"><strong>📊 Analysis</strong></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-header"><strong> Analysis</strong></div>', unsafe_allow_html=True)
                 st.write(ai_insights['analysis'])
                 st.markdown('</div>', unsafe_allow_html=True)
 
-                st.markdown('<div class="card-header"><strong>👕 Recommendations</strong></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-header"><strong> Recommendations</strong></div>', unsafe_allow_html=True)
                 st.write(ai_insights['recommendations'])
                 st.markdown('</div>', unsafe_allow_html=True)
                 
             with col4:
                 st.markdown('<div class="weather-card ai-insights-card">', unsafe_allow_html=True)
-                st.markdown('<div class="card-header"><strong>🎯 Suggested Activities</strong></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-header"><strong> Suggested Activities</strong></div>', unsafe_allow_html=True)
                 st.write(ai_insights['activities'])
                 st.markdown('</div>', unsafe_allow_html=True)
                 
-                st.markdown('<div class="card-header"><strong>💪 Health Advice</strong></div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-header"><strong> Health Advice</strong></div>', unsafe_allow_html=True)
                 st.write(ai_insights['health_advice'])
                 st.markdown('</div>', unsafe_allow_html=True)
         except Exception as e:
@@ -267,23 +267,23 @@ def display_weather_info(data):
 
     # Display additional weather details
     st.markdown('<div class="weather-card">', unsafe_allow_html=True)
-    with st.expander("📝 Detailed Weather Information"):
+    with st.expander(" Detailed Weather Information"):
         col5, col6 = st.columns(2)
         
         with col5:
-            st.write(f"💨 Wind: {current['wind_kph']} km/h {current['wind_dir']}")
-            st.write(f"💧 Humidity: {current['humidity']}%")
+            st.write(f" Wind: {current['wind_kph']} km/h {current['wind_dir']}")
+            st.write(f" Humidity: {current['humidity']}%")
             
         with col6:
-            st.write(f"📍 Position: {location['lat']}, {location['lon']}")
-            st.write(f"🕒 Last updated: {current['last_updated']}")
+            st.write(f" Position: {location['lat']}, {location['lon']}")
+            st.write(f" Last updated: {current['last_updated']}")
 
 def main():
     """Main application function"""
     
     # Check for Weather API key
     if not WEATHER_API_KEY:
-        st.error("⚠️ Please set up your Weather API key in the .env file!")
+        st.error(" Please set up your Weather API key in the .env file!")
         st.code("""
         WEATHER_API_KEY=your_weather_api_key
         """)
@@ -291,17 +291,17 @@ def main():
 
     # Display AI status
     if not ai_enabled:
-        st.warning("⚠️ AI features are disabled. Add your OpenAI API key to enable AI insights.")
+        st.warning(" AI features are disabled. Add your OpenAI API key to enable AI insights.")
         st.code("""
         OPENAI_API_KEY=your_openai_api_key
         """)
 
     # City input
     city = st.text_input(
-        label="City input field",
+        #label="City input field",
         placeholder="Enter a city name (e.g., London, Tokyo, New York)",
-        help="Type the name of any city to get current weather information",
-        label_visibility="collapsed"
+        #help="Type the name of any city to get current weather information",
+        #label_visibility="collapsed"
     )
 
     if city:
