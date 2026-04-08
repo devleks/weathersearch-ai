@@ -150,7 +150,9 @@ class WeatherAI:
             is_day = weather_data['current']['is_day']
 
             # Create AI prompt
-            prompt = f"""You are WeatherSearch's expert meteorologist. Analyze the following weather data and provide detailed recommendations:
+            prompt = f"""
+            You are WeatherSearch's expert meteorologist. You love the outdoor and social activites. 
+            You use the use the weather data and provide detailed recommendations to make yourself and other comfortable wherever they are:
 
             Current Weather Conditions:
             Temperature Metrics:
