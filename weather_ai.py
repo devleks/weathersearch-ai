@@ -153,18 +153,18 @@ class WeatherAI:
             prompt = f"""You are WeatherSearch's expert meteorologist. Analyze the following weather data and provide detailed recommendations:
 
             Current Weather Conditions:
-            🌡️ Temperature Metrics:
+            Temperature Metrics:
             - Current: {temp_c}°C
             - Feels Like: {feels_like}°C ({self._get_temp_description(feels_like)})
             - Heat Index: {heat_index}°C
             - Humidity: {humidity}%
 
-            🌪️ Weather Status:
+            Weather Status:
             - Time: {self._get_day_night_description(is_day).capitalize()}time
             - Condition: {condition}
             - Wind Speed: {wind_kph} km/h ({self._get_wind_description(wind_kph)})
 
-            😷 Air Quality:
+            Air Quality:
             - AQI Level: {aqi} ({self._get_aqi_description(aqi)})
 
             Required Analysis Format:
@@ -209,7 +209,7 @@ class WeatherAI:
                     {"role": "system", "content": "You are Weather Focasting expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.7
+                temperature=0.9
             )
 
             # Parse and return the response
