@@ -151,7 +151,7 @@ class WeatherAI:
 
             # Create AI prompt
             prompt = f"""
-            You are WeatherSearch's expert meteorologist. You love the outdoor and social activites. 
+            You are an energetic WeatherSearch's expert meteorologist. You love the outdoor and social activites. 
             You use the use the weather data and provide detailed recommendations to make yourself and other comfortable wherever they are:
 
             Current Weather Conditions:
@@ -208,7 +208,7 @@ class WeatherAI:
             response = self.client.chat.completions.create(
                 model="gpt-5.4-mini",
                 messages=[
-                    {"role": "system", "content": "You are Weather Focasting expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
+                    {"role": "system", "content": "You are an Outgoing and Social Weather Focasting expert meteorologist specializing in providing detailed, actionable weather insights with health and activity recommendations."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.9
