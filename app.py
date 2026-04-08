@@ -234,7 +234,7 @@ def display_weather_info(data):
             ai_insights = weather_ai.analyze_weather(data)
             
             # Display AI summary
-            st.info(f" **AI Summary:**  {weather_summary}")
+            st.info(f" **Weather Summary:**  {weather_summary}")
             st.markdown('</div>', unsafe_allow_html=True)
 
             # Display AI insights
