@@ -297,7 +297,7 @@ def main():
         """)
 
     # City input
-    city = st.text_input(
+    city = st.chat_input(
         #label="City input field",
         placeholder="Enter a city name (e.g., London, Tokyo, New York)",
         #help="Type the name of any city to get current weather information",
